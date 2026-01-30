@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { View, Alert } from "react-native";
+import { View, Alert, StatusBar } from "react-native";
 import { useLocalSearchParams, router } from "expo-router";
 
 import { PageHeader } from "@/components/PageHeader";
@@ -106,6 +106,7 @@ export default function Target () {
 
     return (
         <View style={{flex: 1, padding: 24}}>
+            <StatusBar barStyle="dark-content" />
             <PageHeader 
                 title="Meta" 
                 subtitle="Economize para alcançar sua meta financeira"
