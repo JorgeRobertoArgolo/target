@@ -72,6 +72,23 @@ export default function InProgress () {
         setIsFetching(false);
     }
 
+    async function handleTransactionRemove (id: string) {
+        Alert.alert('Remover', 'Deseja realmente remover?', [
+            { text: 'Não', style: 'cancel' },
+            { text: 'Sim', onPress: () => transactionRemove(id) }
+        ]);
+    }
+
+    async function transactionRemove (id: string) {
+        try {
+            await transactionDatabase.remove(Number(id));
+            fetchData();
+            Alert.alert('Transação', 'Transação removida com sucessso')
+        } catch (error) {
+            Alert.alert('Erro', 'Não foi possível remover a transação');
+        }
+    }
+
     useFocusEffect(
         useCallback(() => {
             fetchData()    
@@ -99,7 +116,7 @@ export default function InProgress () {
             <List
                 title="Transações"
                 data={transactions}
-                renderItem={({ item }) => <Transaction data={item} onRemove={() => {}} />}
+                renderItem={({ item }) => <Transaction data={item} onRemove={() => handleTransactionRemove(item.id)} />}
                 emptyMessage="Nenhuma transação. Toque em nova transação para guardar seu primeiro dinheiro."
             />
 
